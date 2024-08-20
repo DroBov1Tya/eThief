@@ -1,0 +1,10 @@
+services:
+  email_checker:
+    build: .
+    environment:
+      - EMAIL_USER=${EMAIL_USER}
+      - PASSWORD=${PASSWORD}
+      - IMAP_SERVER=${IMAP_SERVER}
+    volumes:
+      - ./saved_emails:/app/saved_emails  # Монтируем директорию на хосте в контейнер
+    restart: always
