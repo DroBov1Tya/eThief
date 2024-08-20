@@ -46,7 +46,7 @@ sudo sh install-docker.sh
 Для запуска нескольких сессий с разными учетными записями используйте следующую команду:
 
 ```sh
-EMAIL_USER={email@example.com} PASSWORD={password} docker-compose -p first_instance up --build
+EMAIL_USER={email@example.com} PASSWORD={password} IMAP_SERVER={imap_server} docker-compose -p first_instance up --build
 ```
 
 Вы можете запустить несколько экземпляров `eThief`, изменяя переменные окружения и названия проектов, чтобы управлять разными учетными записями одновременно.
