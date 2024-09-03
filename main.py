@@ -10,7 +10,7 @@ from contextlib import contextmanager
 # Ваши учетные данные
 imap_server = os.getenv('IMAP_SERVER')
 email_user = os.getenv('EMAIL_USER')
-password = os.getenv('PASSWORD')  # Используйте приложение для токенов для большей безопасности
+password = os.getenv('PASSWORD')
 
 # Инициализация директорий
 def initialize_directories(base_dir):
@@ -18,6 +18,12 @@ def initialize_directories(base_dir):
         "attachments": os.path.join(base_dir, "attachments"),
         "inbox": os.path.join(base_dir, "inbox"),
         "sent": os.path.join(base_dir, "sent"),
+        "spam": os.path.join(base_dir, "spam"),
+        "trash": os.path.join(base_dir, "trash"),
+        "drafts": os.path.join(base_dir, "drafts"),
+        "templates": os.path.join(base_dir, "templates"),
+        "junk": os.path.join(base_dir, "junk"),
+        "unmarked": os.path.join(base_dir, "unmarked"),
     }
     for key, path in dirs.items():
         os.makedirs(path, exist_ok=True)
@@ -133,20 +139,47 @@ def process_new_messages(server, user, password, old_messages, new_messages, box
 # Основной цикл
 if __name__ == "__main__":
     print("It's Work!")
-    base_dir = "/app/saved_emails"  # Это путь, указанный в volume
+    base_dir = "./"  # Это путь, указанный в volume
     dirs = initialize_directories(base_dir)
+    # Названия папок на серверах яндекс почты
     inbox = "inbox"
-    sent = "Sent"
+    sent = "&BB4EQgQ,BEAEMAQyBDsENQQ9BD0ESwQ1-"
+    trash = "&BCMENAQwBDsENQQ9BD0ESwQ1-"
+    drafts = "&BCcENQRABD0EPgQyBDgEOgQ4-"
+    unmarked = "&BBgEQQRFBD4ENARPBEkEOAQ1-"
+    templates = "&BCcENQRABD0EPgQyBDgEOgQ4-|template"
+    junk = "&BCEEPwQwBDw-"
+
     old_messages_inbox = check_mail(imap_server, email_user, password, inbox)
     old_messages_sent = check_mail(imap_server, email_user, password, sent)
+    old_messages_trash = check_mail(imap_server, email_user, password, trash)
+    old_messages_drafts = check_mail(imap_server, email_user, password, drafts)
+    old_messages_unmarked = check_mail(imap_server, email_user, password, unmarked)
+    old_messages_templates = check_mail(imap_server, email_user, password, templates)
+    old_messages_junk = check_mail(imap_server, email_user, password, junk)
     
     while True:
         time.sleep(5)
         new_messages_inbox = check_mail(imap_server, email_user, password, inbox)
         new_messages_sent = check_mail(imap_server, email_user, password, sent)
+        new_messages_trash = check_mail(imap_server, email_user, password, trash)
+        new_messages_drafts = check_mail(imap_server, email_user, password, drafts)
+        new_messages_unmarked = check_mail(imap_server, email_user, password, unmarked)
+        new_messages_templates = check_mail(imap_server, email_user, password, templates)
+        new_messages_junk = check_mail(imap_server, email_user, password, junk)
 
         process_new_messages(imap_server, email_user, password, old_messages_inbox, new_messages_inbox, inbox, dirs)
         process_new_messages(imap_server, email_user, password, old_messages_sent, new_messages_sent, sent, dirs)
+        process_new_messages(imap_server, email_user, password, old_messages_trash, new_messages_sent, trash, dirs)
+        process_new_messages(imap_server, email_user, password, old_messages_drafts, new_messages_sent, drafts, dirs)
+        process_new_messages(imap_server, email_user, password, old_messages_unmarked, new_messages_sent, unmarked, dirs)
+        process_new_messages(imap_server, email_user, password, old_messages_templates, new_messages_sent, templates, dirs)
+        process_new_messages(imap_server, email_user, password, old_messages_junk, new_messages_sent, junk, dirs)
 
         old_messages_inbox = new_messages_inbox
         old_messages_sent = new_messages_sent
+        old_messages_trash = new_messages_trash
+        old_messages_drafts = new_messages_drafts
+        old_messages_unmarked = new_messages_unmarked
+        old_messages_templates = new_messages_templates
+        old_messages_junk = new_messages_junk
