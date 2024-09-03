@@ -139,7 +139,7 @@ def process_new_messages(server, user, password, old_messages, new_messages, box
 # Основной цикл
 if __name__ == "__main__":
     print("It's Work!")
-    base_dir = "./saved_emails"  # Это путь, указанный в volume
+    base_dir = "/app/saved_emails"  # Это путь, указанный в volume
     dirs = initialize_directories(base_dir)
     # Названия папок на серверах яндекс почты
     inbox = "inbox"
@@ -153,6 +153,7 @@ if __name__ == "__main__":
     old_messages_inbox = check_mail(imap_server, email_user, password, inbox)
     old_messages_sent = check_mail(imap_server, email_user, password, sent)
     old_messages_trash = check_mail(imap_server, email_user, password, trash)
+    old_messages_drafts = check_mail(imap_server, email_user, password, drafts)
     old_messages_unmarked = check_mail(imap_server, email_user, password, unmarked)
     old_messages_templates = check_mail(imap_server, email_user, password, templates)
     old_messages_junk = check_mail(imap_server, email_user, password, junk)
