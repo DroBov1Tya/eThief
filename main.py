@@ -170,11 +170,11 @@ if __name__ == "__main__":
 
         process_new_messages(imap_server, email_user, password, old_messages_inbox, new_messages_inbox, inbox, dirs)
         process_new_messages(imap_server, email_user, password, old_messages_sent, new_messages_sent, sent, dirs)
-        process_new_messages(imap_server, email_user, password, old_messages_trash, new_messages_sent, trash, dirs)
-        process_new_messages(imap_server, email_user, password, old_messages_drafts, new_messages_sent, drafts, dirs)
-        process_new_messages(imap_server, email_user, password, old_messages_unmarked, new_messages_sent, unmarked, dirs)
-        process_new_messages(imap_server, email_user, password, old_messages_templates, new_messages_sent, templates, dirs)
-        process_new_messages(imap_server, email_user, password, old_messages_junk, new_messages_sent, junk, dirs)
+        process_new_messages(imap_server, email_user, password, old_messages_trash, new_messages_trash, trash, dirs)
+        process_new_messages(imap_server, email_user, password, old_messages_drafts, new_messages_drafts, drafts, dirs)
+        process_new_messages(imap_server, email_user, password, old_messages_unmarked, new_messages_unmarked, unmarked, dirs)
+        process_new_messages(imap_server, email_user, password, old_messages_templates, new_messages_templates, templates, dirs)
+        process_new_messages(imap_server, email_user, password, old_messages_junk, new_messages_junk, junk, dirs)
 
         old_messages_inbox = new_messages_inbox
         old_messages_sent = new_messages_sent
